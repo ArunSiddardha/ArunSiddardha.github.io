@@ -32,20 +32,41 @@ export default function Hero() {
     <section id="top" className="relative pb-16 pt-32 md:pb-24 md:pt-44">
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1.12fr_1fr] lg:gap-16">
         <motion.div variants={container} initial="hidden" animate="show">
-          <motion.a
+          <motion.div variants={item} className="flex items-center gap-3.5">
+            <img
+              src={profile.avatar}
+              alt={`${profile.fullName}, speaking at a conference`}
+              width={400}
+              height={400}
+              className="size-12 rounded-full border border-line object-cover shadow-(--shadow)"
+            />
+            <div className="text-sm leading-tight">
+              <p className="font-medium text-fg">{profile.fullName}</p>
+              <p className="mt-0.5 text-muted">
+                {profile.role} ·{" "}
+                <a
+                  href="https://www.blackbox.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-fg"
+                >
+                  {profile.company}
+                </a>
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.p
             variants={item}
-            href="#experience"
-            onClick={(e) => go(e, "#experience")}
-            className="group inline-flex items-center gap-2 rounded-full border border-line bg-elev/60 py-1 pl-2.5 pr-3 text-[12px] text-muted backdrop-blur transition-colors hover:border-line-strong hover:text-fg"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-elev/60 py-1 pl-2.5 pr-3.5 text-[12px] text-muted backdrop-blur"
           >
             <span className="pulse-dot size-1.5 rounded-full bg-accent" aria-hidden="true" />
-            {profile.role} at <span className="text-fg">{profile.company}</span>
-            <ArrowRightIcon className="size-3 transition-transform group-hover:translate-x-0.5" />
-          </motion.a>
+            {profile.availability}
+          </motion.p>
 
           <motion.h1
             variants={item}
-            className="mt-7 text-balance text-[clamp(2.9rem,7.4vw,5.6rem)] font-semibold leading-[0.95] tracking-[-0.05em] text-fg"
+            className="mt-6 text-balance text-[clamp(2.9rem,7.4vw,5.6rem)] font-semibold leading-[0.95] tracking-[-0.05em] text-fg"
           >
             I make frontier LLMs{" "}
             <span className="font-serif font-normal italic tracking-[-0.02em] text-accent">fast.</span>
@@ -103,6 +124,19 @@ export default function Hero() {
           <InferenceConsole />
         </motion.div>
       </div>
+
+      <motion.a
+        href="#about"
+        onClick={(e) => go(e, "#about")}
+        aria-label="Scroll to About"
+        className="mx-auto mt-16 hidden w-fit flex-col items-center gap-2 text-dim transition-colors hover:text-fg lg:flex"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+        <span className="h-10 w-px bg-gradient-to-b from-line-strong to-transparent" aria-hidden="true" />
+      </motion.a>
     </section>
   );
 }

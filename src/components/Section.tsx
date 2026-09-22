@@ -22,9 +22,16 @@ export default function Section({ id, index, eyebrow, title, description, childr
           </p>
           <h2
             id={`${id}-title`}
-            className="mt-4 max-w-3xl text-balance text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-fg"
+            className="group/anchor mt-4 max-w-3xl text-balance text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-fg"
           >
             {title}
+            <a
+              href={`#${id}`}
+              aria-label={`Link to this section`}
+              className="ml-3 align-middle font-mono text-2xl text-accent opacity-0 transition-opacity focus-visible:opacity-100 group-hover/anchor:opacity-100"
+            >
+              #
+            </a>
           </h2>
           {description && (
             <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted">{description}</p>

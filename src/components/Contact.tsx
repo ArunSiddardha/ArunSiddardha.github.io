@@ -57,6 +57,11 @@ export default function Contact() {
               systems — a role, a collaboration, or a hard performance problem.
             </p>
 
+            <p className="mx-auto mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-elev/60 py-1 pl-2.5 pr-3.5 text-[12px] text-muted">
+              <span className="pulse-dot size-1.5 rounded-full bg-accent" aria-hidden="true" />
+              {profile.availability}
+            </p>
+
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <a
                 href={`mailto:${profile.email}`}

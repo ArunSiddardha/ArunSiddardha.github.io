@@ -5,11 +5,16 @@ export const profile = {
   company: "BlackBox AI",
   location: "Hyderabad, India",
   email: "arunsiddardha19@gmail.com",
-  github: "https://github.com/arunsiddardha",
-  linkedin: "https://www.linkedin.com/in/arunsiddardha",
+  github: "https://github.com/ArunSiddardha",
+  linkedin: "https://www.linkedin.com/in/arun-siddardha",
   resume: "/Arun_Siddardha_Resume.pdf",
+  site: "https://arunsiddardha.github.io",
+  availability: "Open to collaborations and hard inference problems",
+  lastUpdated: "September 2026",
   // Square photo in /public; set to undefined to fall back to an "AS" monogram.
   photo: "/profile.jpg" as string | undefined,
+  /** Face-cropped version of `photo`, used for the small avatar. */
+  avatar: "/avatar.jpg",
 } as const;
 
 export interface Stat {
@@ -373,6 +378,7 @@ export interface Project {
   viz: ProjectViz;
   tech: string[];
   link?: string;
+  linkLabel?: string;
 }
 
 export const projects: Project[] = [
@@ -384,6 +390,8 @@ export const projects: Project[] = [
     metric: { value: "436 tok/s", label: "Nemotron 3 Ultra" },
     viz: { kind: "rank", total: 7, position: 1, caption: "Provider rank · single-stream throughput" },
     tech: ["SGLang", "vLLM", "Speculative decoding", "CUDA Graphs", "Blackwell"],
+    link: "https://artificialanalysis.ai/models/nvidia-nemotron-3-ultra-550b-a55b/providers",
+    linkLabel: "See the leaderboard on Artificial Analysis",
   },
   {
     title: "A 2.8T-parameter hybrid MoE in production",

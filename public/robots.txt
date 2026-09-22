@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arunsiddardha.github.io/sitemap.xml

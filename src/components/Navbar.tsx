@@ -84,9 +84,13 @@ export default function Navbar({ onOpenPalette }: { onOpenPalette: () => void })
           className="flex items-center gap-2.5 rounded-full py-0.5 pl-0.5 pr-3"
           aria-label={`${profile.name} — back to top`}
         >
-          <span className="grid size-7 place-items-center rounded-full bg-fg font-mono text-[10px] font-semibold tracking-tight text-bg">
-            AS
-          </span>
+          <img
+            src={profile.avatar}
+            alt=""
+            width={400}
+            height={400}
+            className="size-8 shrink-0 rounded-full border border-line object-cover"
+          />
           <span className="text-sm font-medium tracking-tight text-fg">{profile.name}</span>
         </a>
 

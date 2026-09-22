@@ -122,6 +122,17 @@ function FeaturedProject({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent"
+          >
+            {project.linkLabel ?? "View project"}
+            <ArrowUpRightIcon className="size-4 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+          </a>
+        )}
       </div>
     </SpotlightCard>
   );
@@ -173,7 +184,10 @@ export default function Projects() {
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {otherProjects.map((project, i) => (
             <Reveal key={project.title} delay={(i % 3) * 0.06} className="h-full">
-              <SpotlightCard as="article" className="flex h-full flex-col p-6">
+              <SpotlightCard
+                as="article"
+                className="flex h-full flex-col p-6 transition-transform duration-300 hover:-translate-y-1"
+              >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[11px] text-dim">{String(i + 1).padStart(2, "0")}</span>
                   {(project.link ?? project.github) && (
