@@ -32,33 +32,9 @@ export default function Hero() {
     <section id="top" className="relative pb-16 pt-32 md:pb-24 md:pt-44">
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1.12fr_1fr] lg:gap-16">
         <motion.div variants={container} initial="hidden" animate="show">
-          <motion.div variants={item} className="flex items-center gap-3.5">
-            <img
-              src={profile.avatar}
-              alt={`${profile.fullName}, speaking at a conference`}
-              width={400}
-              height={400}
-              className="size-12 rounded-full border border-line object-cover shadow-(--shadow)"
-            />
-            <div className="text-sm leading-tight">
-              <p className="font-medium text-fg">{profile.fullName}</p>
-              <p className="mt-0.5 text-muted">
-                {profile.role} ·{" "}
-                <a
-                  href="https://www.blackbox.ai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-fg"
-                >
-                  {profile.company}
-                </a>
-              </p>
-            </div>
-          </motion.div>
-
           <motion.p
             variants={item}
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-elev/60 py-1 pl-2.5 pr-3.5 text-[12px] text-muted backdrop-blur"
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-elev/60 py-1 pl-2.5 pr-3.5 text-[12px] text-muted backdrop-blur"
           >
             <span className="pulse-dot size-1.5 rounded-full bg-accent" aria-hidden="true" />
             {profile.availability}

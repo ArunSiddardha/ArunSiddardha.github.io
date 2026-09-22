@@ -1,8 +1,5 @@
-import { navLinks, profile, socialLinks } from "../lib/data";
+import { navLinks, profile } from "../lib/data";
 import { scrollToTarget } from "../lib/scroll";
-import { ArrowUpIcon, GithubIcon, LinkedinIcon, MailIcon } from "./Icons";
-
-const icons = { github: GithubIcon, linkedin: LinkedinIcon, email: MailIcon };
 
 const sections = [...navLinks, { label: "Toolbox", href: "#toolbox" }];
 
@@ -81,40 +78,6 @@ export default function Footer() {
               ))}
             </ul>
           </nav>
-        </div>
-
-        <div className="mt-12 flex flex-col gap-4 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="text-sm text-dim">
-            © {new Date().getFullYear()} {profile.fullName} · Updated {profile.lastUpdated} · Built with React,
-            Tailwind CSS and Framer Motion.
-          </p>
-          <div className="flex items-center gap-1">
-            {socialLinks.map((link) => {
-              const Icon = icons[link.key];
-              const external = link.key !== "email";
-              return (
-                <a
-                  key={link.key}
-                  href={link.href}
-                  aria-label={link.label}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                  className="grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-elev-2 hover:text-fg"
-                >
-                  <Icon className="size-4" />
-                </a>
-              );
-            })}
-            <span className="mx-2 h-5 w-px bg-line" aria-hidden="true" />
-            <button
-              type="button"
-              onClick={() => scrollToTarget(0)}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm text-muted transition-colors hover:bg-elev-2 hover:text-fg"
-            >
-              Back to top
-              <ArrowUpIcon className="size-3.5" />
-            </button>
-          </div>
         </div>
       </div>
     </footer>
