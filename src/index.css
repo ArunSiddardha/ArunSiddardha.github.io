@@ -1,0 +1,250 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/* Colour tokens are CSS variables so the whole site can switch theme at runtime. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-elev: var(--elev);
+  --color-elev-2: var(--elev-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-dim: var(--dim);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, "Times New Roman", serif;
+}
+
+:root {
+  --bg: #08090b;
+  --elev: #0e1014;
+  --elev-2: #15181d;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --fg: #ededef;
+  --muted: #a1a1aa;
+  --dim: #8a8a93;
+  --accent: #34d399;
+  --accent-fg: #03150d;
+  --grid: rgba(255, 255, 255, 0.035);
+  --glow: rgba(52, 211, 153, 0.14);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 48px -24px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #fafaf9;
+  --elev: #ffffff;
+  --elev-2: #f4f4f5;
+  --line: rgba(10, 10, 12, 0.08);
+  --line-strong: rgba(10, 10, 12, 0.16);
+  --fg: #0b0b0d;
+  --muted: #52525b;
+  --dim: #6b6b74;
+  --accent: #047857;
+  --accent-fg: #ffffff;
+  --grid: rgba(10, 10, 12, 0.045);
+  --glow: rgba(4, 120, 87, 0.1);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 20px 40px -24px rgba(15, 23, 42, 0.18);
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  body {
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    /* No background here: the page colour lives on <html> so the fixed -z-10 backdrop can show through. */
+    color: var(--fg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 35%, transparent);
+    color: var(--fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* ---------- Background layers ---------- */
+
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+}
+
+.bg-aurora {
+  background:
+    radial-gradient(40rem 22rem at 20% -5%, var(--glow), transparent 70%),
+    radial-gradient(32rem 20rem at 85% 5%, color-mix(in oklab, var(--glow) 60%, transparent), transparent 70%);
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+
+.cursor-glow {
+  background: radial-gradient(
+    36rem circle at var(--cx, 50%) var(--cy, -20%),
+    color-mix(in oklab, var(--accent) 7%, transparent),
+    transparent 60%
+  );
+}
+
+/* ---------- Cards with a cursor-following border glow ---------- */
+
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    22rem circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklab, var(--accent) 70%, transparent),
+    transparent 45%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    28rem circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklab, var(--accent) 6%, transparent),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.spotlight:hover::before,
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* ---------- Marquee ---------- */
+
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+
+.marquee-mask:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Small details ---------- */
+
+.caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--accent);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.pulse-dot {
+  position: relative;
+}
+
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: inherit;
+  animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Circular reveal when switching theme (View Transitions API). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .caret,
+  .pulse-dot::after {
+    animation: none;
+  }
+}
